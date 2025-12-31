@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Base64 Converter - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="container my-4">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1>🖼️ Image to Base64 Converter</h1>
+                <p>Convert images to Base64 encoding</p>
+            </div>
+
+            <div class="input-group-custom">
+                <label for="imageInput">Select Image File:</label>
+                <input type="file" id="imageInput" accept="image/*" class="form-control">
+            </div>
+
+            <div class="text-center mb-3">
+                <button class="btn btn-primary btn-custom" onclick="convertToBase64()">Convert to Base64</button>
+                <button class="btn btn-secondary btn-custom" onclick="clearAll()">Clear</button>
+            </div>
+
+            <div id="previewContainer" class="text-center mb-3" style="display: none;">
+                <h5>Preview:</h5>
+                <img id="previewImage" style="max-width: 100%; max-height: 300px; border: 2px solid #ddd; border-radius: 5px;">
+            </div>
+
+            <div class="input-group-custom">
+                <label for="base64Output">Base64 String:</label>
+                <textarea id="base64Output" class="form-control" rows="8" readonly></textarea>
+            </div>
+
+            <div class="text-center mb-3">
+                <button class="btn btn-success btn-custom" onclick="copyBase64()">Copy Base64</button>
+            </div>
+
+            <div class="ad-placeholder bg-secondary p-3 rounded mt-4 text-center">
+                <small class="text-muted">Advertisement</small>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="common.js"></script>
+    <script>
+        function convertToBase64() {
+            const fileInput = document.getElementById('imageInput');
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('Please select an image file first.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                document.getElementById('base64Output').value = base64String;
+                document.getElementById('previewImage').src = base64String;
+                document.getElementById('previewContainer').style.display = 'block';
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function copyBase64() {
+            const base64Output = document.getElementById('base64Output');
+            if (base64Output.value) {
+                base64Output.select();
+                document.execCommand('copy');
+                alert('Base64 string copied to clipboard!');
+            } else {
+                alert('No Base64 string to copy. Please convert an image first.');
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('imageInput').value = '';
+            document.getElementById('base64Output').value = '';
+            document.getElementById('previewContainer').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+

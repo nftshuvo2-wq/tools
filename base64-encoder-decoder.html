@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder & Decoder - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <div class="container my-4">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1>🔐 Base64 Encoder & Decoder</h1>
+                <p>Encode or decode Base64 strings</p>
+            </div>
+            <div class="input-group-custom">
+                <label for="base64Input">Enter Text or Base64:</label>
+                <textarea id="base64Input" class="form-control" rows="5" placeholder="Enter text to encode or Base64 to decode..."></textarea>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <button class="btn btn-primary w-100 mb-2" onclick="encodeBase64()">Encode Base64</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary w-100 mb-2" onclick="decodeBase64()">Decode Base64</button>
+                </div>
+            </div>
+            <div class="input-group-custom">
+                <label for="base64Output">Result:</label>
+                <textarea id="base64Output" class="form-control" rows="5" readonly></textarea>
+            </div>
+            <div class="text-center mb-3">
+                <button class="btn btn-success btn-custom" onclick="copyResult()">Copy</button>
+                <button class="btn btn-secondary btn-custom" onclick="clearAll()">Clear</button>
+            </div>
+            <div class="ad-placeholder bg-secondary p-3 rounded mt-4 text-center">
+                <small class="text-muted">Advertisement</small>
+            </div>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="common.js"></script>
+    <script>
+        function encodeBase64() {
+            const input = document.getElementById('base64Input').value;
+            document.getElementById('base64Output').value = btoa(unescape(encodeURIComponent(input)));
+        }
+        function decodeBase64() {
+            try {
+                const input = document.getElementById('base64Input').value;
+                document.getElementById('base64Output').value = decodeURIComponent(escape(atob(input)));
+            } catch(e) {
+                alert('Invalid Base64 string: ' + e.message);
+            }
+        }
+        function copyResult() {
+            const output = document.getElementById('base64Output');
+            if (output.value) {
+                output.select();
+                document.execCommand('copy');
+                alert('Copied!');
+            }
+        }
+        function clearAll() {
+            document.getElementById('base64Input').value = '';
+            document.getElementById('base64Output').value = '';
+        }
+    </script>
+</body>
+</html>
+
+

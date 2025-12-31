@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <div class="container my-4">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1>📝 Character Counter</h1>
+                <p>Count characters in your text</p>
+            </div>
+            <div class="input-group-custom">
+                <label for="textInput">Enter Text:</label>
+                <textarea id="textInput" class="form-control" rows="10" placeholder="Type or paste your text here..."></textarea>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Characters</h5>
+                            <h3 id="charCount">0</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Characters (no spaces)</h5>
+                            <h3 id="charNoSpaceCount">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mb-3">
+                <button class="btn btn-secondary btn-custom" onclick="clearAll()">Clear</button>
+            </div>
+            <div class="ad-placeholder bg-secondary p-3 rounded mt-4 text-center">
+                <small class="text-muted">Advertisement</small>
+            </div>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="common.js"></script>
+    <script>
+        document.getElementById('textInput').addEventListener('input', function() {
+            const text = this.value;
+            document.getElementById('charCount').textContent = text.length;
+            document.getElementById('charNoSpaceCount').textContent = text.replace(/\s/g, '').length;
+        });
+        function clearAll() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('charCount').textContent = '0';
+            document.getElementById('charNoSpaceCount').textContent = '0';
+        }
+    </script>
+</body>
+</html>
+
+

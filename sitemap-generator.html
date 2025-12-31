@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Generator - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <div class="container my-4">
+        <div class="tool-container">
+            <div class="tool-header">
+                <h1>🗺️ Sitemap Generator</h1>
+                <p>Generate XML sitemaps for websites</p>
+            </div>
+            <div class="input-group-custom">
+                <label for="urlsInput">Enter URLs (one per line):</label>
+                <textarea id="urlsInput" class="form-control" rows="10" placeholder="https://example.com/page1&#10;https://example.com/page2"></textarea>
+            </div>
+            <div class="text-center mb-3">
+                <button class="btn btn-primary btn-custom" onclick="generateSitemap()">Generate Sitemap</button>
+                <button class="btn btn-secondary btn-custom" onclick="clearAll()">Clear</button>
+            </div>
+            <div class="input-group-custom">
+                <label for="sitemapOutput">XML Sitemap:</label>
+                <textarea id="sitemapOutput" class="form-control" rows="15" readonly></textarea>
+            </div>
+            <div class="text-center mb-3">
+                <button class="btn btn-success btn-custom" onclick="copySitemap()">Copy Sitemap</button>
+            </div>
+            <div class="ad-placeholder bg-secondary p-3 rounded mt-4 text-center">
+                <small class="text-muted">Advertisement</small>
+            </div>
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="common.js"></script>
+    <script>
+        function generateSitemap() {
+            const urls = document.getElementById('urlsInput').value.split('\n').filter(url => url.trim());
+            if (urls.length === 0) {
+                alert('Please enter at least one URL.');
+                return;
+            }
+            let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+            urls.forEach(url => {
+                sitemap += `  <url>\n    <loc>${url.trim()}</loc>\n    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+            });
+            sitemap += '</urlset>';
+            document.getElementById('sitemapOutput').value = sitemap;
+        }
+        function copySitemap() {
+            const output = document.getElementById('sitemapOutput');
+            if (output.value) {
+                output.select();
+                document.execCommand('copy');
+                alert('Sitemap copied!');
+            }
+        }
+        function clearAll() {
+            document.getElementById('urlsInput').value = '';
+            document.getElementById('sitemapOutput').value = '';
+        }
+    </script>
+</body>
+</html>
+
+
